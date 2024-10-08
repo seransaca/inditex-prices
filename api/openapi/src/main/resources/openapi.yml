@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Proof Inditex
+  description: API for connections to App
+  version: v1
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: Price
+    description: "Price"
+paths:
+  /price:
+    post:
+      operationId: findPrice
+      summary: "Find a Price"
+      tags:
+        - Price
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FindPriceRequest"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Price"
+        "400":
+          description: "No valid request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: "Task already exists"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          description: "Mensaje de error"
+          type: string
+          example: "Error"
+        cause:
+          description: "Causa del error"
+          type: string
+          example: "Causa"
+        validations:
+          description: "Lista de validaciones"
+          type: array
+          items:
+            $ref: "#/components/schemas/Validation"
+    Validation:
+      type: object
+      properties:
+        dto:
+          description: "Objeto donde se encuentra el error de validacion"
+          type: string
+          example: "downloadDocumentRequest"
+        field:
+          description: "Parámetro donde se encuentra el error de validacion"
+          type: string
+          example: "context"
+        error:
+          description: "Error de validacion"
+          type: string
+          example: "no debe ser nulo"
+    FindPriceRequest:
+      type: object
+      required:
+        - productId
+        - brandId
+        - date
+      properties:
+        productId:
+          type: integer
+          format: int64
+          description: "Id of the product"
+          example: "35455"
+        brandId:
+          type: integer
+          format: int64
+          description: "Id of the brand"
+          example: "1"
+        date:
+          type: string
+          format: datetime
+          description: "The date to find the product with the wright price"
+          example: "2020-06-14 10:00"
+    Price:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          description: "Id of the product"
+          example: "35455"
+        brandId:
+          type: integer
+          format: int64
+          description: "Id of the brand"
+          example: "1"
+        priceId:
+          type: integer
+          format: int32
+          description: "Id of the price"
+          example: "1"
+        dateStart:
+          type: string
+          pattern: "yyyy-MM-dd HH:mm:ss"
+          description: "The start date of the price"
+          example: "2020-06-14 00:00:00"
+        dateEnd:
+          type: string
+          pattern: "yyyy-MM-dd HH:mm:ss"
+          description: "The end date of the price"
+          example: "2024-12-31 23:59:59"
+        price:
+          type: string
+          description: "The price"
+          example: "35.50 EUR"

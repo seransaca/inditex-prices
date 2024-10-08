@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>inditex</artifactId>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*IT.java</include>
+          </includes>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.1.0</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <description>Inditex project for Spring Boot</description>
+  <groupId>com.proof</groupId>
+  <modelVersion>4.0.0</modelVersion>
+
+  <modules>
+    <module>api/openapi</module>
+    <module>api/rest</module>
+    <module>boot</module>
+    <module>domain</module>
+    <module>infrastructure</module>
+  </modules>
+
+  <name>inditex</name>
+
+  <packaging>pom</packaging>
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>3.3.4</version>
+  </parent>
+
+
+  <properties>
+    <java.version>17</java.version>
+    <mapstruct-binding.version>0.2.0</mapstruct-binding.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
+  </properties>
+
+  <version>1.0.0</version>
+
+</project>
